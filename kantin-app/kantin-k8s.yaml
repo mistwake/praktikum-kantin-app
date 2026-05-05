@@ -24,7 +24,7 @@ spec:
         - name: NAMA
           value: "Anas"
         - name: NIM
-          value: "123456789"
+          value: "2410865"
 ---
 apiVersion: v1
 kind: Service
