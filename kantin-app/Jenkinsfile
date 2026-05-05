@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         // ganti dengan username docker hub kamu
-        DOCKER_USER = "username_dockerhub"
+        DOCKER_USER = "mistwake"
         // ganti dengan url github repository kamu
-        GIT_REPO_URL = "https://github.com/username/praktikum-kantin-app.git"
+        GIT_REPO_URL = "https://github.com/mistwake/praktikum-kantin-app.git" // WAJIB GANTI INI DENGAN URL GITHUB-MU!
     }
 
     stages {
@@ -19,7 +19,7 @@ pipeline {
         stage('Build & Push Docker Image') {
             steps {
                 // login docker hub menggunakan kredensial yang tersimpan di jenkins
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-login', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                     // membangun image docker
                     // catatan: menggunakan sh karena berjalan di jenkins aks linux
                     sh "docker build -t ${USER}/kantin-backend:latest ./backend"
@@ -36,7 +36,7 @@ pipeline {
         stage('Deploy ke Azure AKS') {
             steps {
                 // menggunakan file kubeconfig yang tersimpan di kredensial jenkins
-                withKubeConfig([credentialsId: 'aks-config']) {
+                withKubeConfig([credentialsId: 'kubeconfig']) {
                     // menerapkan file konfigurasi kubernetes
                     sh "kubectl apply -f kantin-k8s.yaml"
                     sh "kubectl apply -f kantin-ingress.yaml"
