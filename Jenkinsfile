@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_USER = "mistwake"
-        GIT_REPO_URL = "https://github.com/mistwake/praktikum-kantin-app.git" // WAJIB GANTI INI DENGAN URL GITHUB-MU!
+        GIT_REPO_URL = "https://github.com/mistwake/praktikum-kantin-app.git"
     }
 
     stages {
