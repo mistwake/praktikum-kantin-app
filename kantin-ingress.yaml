@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: kantin-ingress
 spec:
+  ingressClassName: nginx
   rules:
   # tidak diwajibkan ada host di tugas 2
   - http:
