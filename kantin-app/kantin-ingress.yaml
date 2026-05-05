@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kantin-ingress
+spec:
+  rules:
+  # tidak diwajibkan ada host di tugas 2
+  - http:
+      paths:
+      - path: /api # semua request ke /api diarahkan ke backend
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-service
+            port:
+              number: 5000
+      - path: / # sisa request utama diarahkan ke frontend
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80

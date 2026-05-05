@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-kantin
+spec:
+  replicas: 1 # diubah ke 1 untuk contoh sederhana
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend-api
+        # isi dengan username docker hub yang sesuai
+        image: mistwake/kantin-backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        # inject variabel identitas dari yaml ini (tugas 2)
+        env:
+        - name: NAMA
+          value: "Anas"
+        - name: NIM
+          value: "123456789"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP # diubah menjadi clusterip karena akses via ingress
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-kantin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend-ui
+        # isi dengan username docker hub yang sesuai
+        image: mistwake/kantin-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP # diubah menjadi clusterip karena akses via ingress
