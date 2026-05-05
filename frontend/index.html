@@ -1,42 +1,248 @@
 <!DOCTYPE html>
-<html>
-<head><title>E-Kantin</title></head>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Kantin Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --bg-color: #0f172a;
+            --surface: rgba(30, 41, 59, 0.7);
+            --surface-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,0.3) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,0.3) 0, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--surface);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--surface-border);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--surface-border);
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        li:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        li:hover::before {
+            opacity: 1;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--surface-border);
+        }
+
+        input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--surface-border);
+            color: var(--text-main);
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+            height: 24px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .skeleton-title { height: 40px; width: 60%; margin: 0 auto 10px; }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
 <body>
-    <h1 id="kantin-name">Memuat...</h1>
-    <ul id="menu-list"></ul>
 
+    <div class="container">
+        <div class="header">
+            <h1 id="kantin-name"><div class="skeleton skeleton-title"></div></h1>
+            <p style="color: var(--text-muted);">Sistem Manajemen Menu Modern</p>
+        </div>
 
-    <hr>
-    <h3>Tambah Menu Baru:</h3>
-    <input type="text" id="menu-input" placeholder="Nama makanan...">
-    <button onclick="tambahMenu()">Tambah</button>
+        <div class="menu-section">
+            <ul id="menu-list">
+                <li><div class="skeleton"></div></li>
+                <li><div class="skeleton"></div></li>
+                <li><div class="skeleton"></div></li>
+            </ul>
+        </div>
 
+        <div class="input-group">
+            <input type="text" id="menu-input" placeholder="Masukkan nama menu baru..." autocomplete="off">
+            <button onclick="tambahMenu()">Tambah Menu</button>
+        </div>
+    </div>
 
     <script>
-        // mengubah api url menjadi relative path (tugas 2)
         const API_URL = '/api';
 
-        // fungsi untuk mengambil data kantin
         function loadData() {
             fetch(`${API_URL}/info`)
                 .then(res => res.json())
                 .then(data => {
-                    // menampilkan nama dan nim di halaman web
                     document.getElementById('kantin-name').innerText = data.nama_kantin;
                     const list = document.getElementById('menu-list');
                     list.innerHTML = '';
-                    // menampilkan semua menu
-                    data.menu.forEach(item => {
+                    
+                    data.menu.forEach((item, index) => {
                         let li = document.createElement('li');
                         li.innerText = item;
+                        li.style.animation = `fadeIn 0.5s ease-out ${index * 0.1}s both`;
                         list.appendChild(li);
                     });
+                })
+                .catch(err => {
+                    document.getElementById('kantin-name').innerText = "Kantin FPMIPA";
+                    const list = document.getElementById('menu-list');
+                    list.innerHTML = '<li style="color: #ef4444;">Gagal memuat data dari server.</li>';
                 });
         }
 
-        // fungsi untuk menambah menu baru
         function tambahMenu() {
             const input = document.getElementById('menu-input');
+            const btn = document.querySelector('button');
+            
+            if (!input.value.trim()) return;
+
+            // Animate button
+            const originalText = btn.innerText;
+            btn.innerText = 'Menyimpan...';
+            btn.style.opacity = '0.8';
+
             fetch(`${API_URL}/add-menu`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -45,12 +251,21 @@
             .then(res => res.json())
             .then(() => {
                 input.value = '';
-                // memanggil ulang data setelah menu ditambah
                 loadData();
+            })
+            .finally(() => {
+                btn.innerText = originalText;
+                btn.style.opacity = '1';
             });
         }
 
-        // memanggil data saat pertama kali dimuat
+        // Enter key to add menu
+        document.getElementById('menu-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                tambahMenu();
+            }
+        });
+
         loadData();
     </script>
 </body>
