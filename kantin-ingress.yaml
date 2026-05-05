@@ -5,10 +5,9 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  # tidak diwajibkan ada host di tugas 2
   - http:
       paths:
-      - path: /api # semua request ke /api diarahkan ke backend
+      - path: /api
         pathType: Prefix
         backend:
           service:

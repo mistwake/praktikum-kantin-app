@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend-kantin
 spec:
-  replicas: 1 # diubah ke 1 untuk contoh sederhana
+  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -14,7 +14,6 @@ spec:
     spec:
       containers:
       - name: backend-api
-        # isi dengan username docker hub yang sesuai
         image: mistwake/kantin-backend:latest
         imagePullPolicy: Always
         ports:
@@ -55,7 +54,6 @@ spec:
     spec:
       containers:
       - name: frontend-ui
-        # isi dengan username docker hub yang sesuai
         image: mistwake/kantin-frontend:latest
         imagePullPolicy: Always
         ports:

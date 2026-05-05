@@ -2,9 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // ganti dengan username docker hub kamu
         DOCKER_USER = "mistwake"
-        // ganti dengan url github repository kamu
         GIT_REPO_URL = "https://github.com/mistwake/praktikum-kantin-app.git" // WAJIB GANTI INI DENGAN URL GITHUB-MU!
     }
 
@@ -18,7 +16,6 @@ pipeline {
 
         stage('Build & Push Docker Image') {
             steps {
-                // login docker hub menggunakan kredensial yang tersimpan di jenkins
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                     // membangun image docker
                     // catatan: menggunakan sh karena berjalan di jenkins aks linux
