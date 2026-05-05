@@ -19,7 +19,7 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
-        # inject variabel identitas dari yaml ini (tugas 2)
+        # inject variabel identitas dari yaml ini
         env:
         - name: NAMA
           value: "Anas"
